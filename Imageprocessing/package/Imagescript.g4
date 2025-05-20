@@ -1,8 +1,6 @@
-// Save as ImageScript.g4
-grammar ImageScript;
+grammar Imagescript;
 
-// Parser Rules (Start Rule)
-script: command* EOF; // A script is zero or more commands
+script: command* EOF;
 
 command:
       loadCmd
@@ -22,12 +20,11 @@ saveCmd         : 'SAVE' varName=ID 'TO' filePath=STRING_LITERAL 'FORMAT' format
 
 // Lexer Rules
 ID              : [a-zA-Z_][a-zA-Z_0-9]* ;
-NUMBER          : [0-9]+ ('.' [0-9]+)? ; // Allows integers and simple decimals for angle
-STRING_LITERAL  : '"' ( ~["\r\n] | '""' )*? '"' ; // Handles simple strings, use "" for an escaped quote
+NUMBER          : [0-9]+ ('.' [0-9]+)? ;
+STRING_LITERAL  : '"' ( ~["\r\n] | '""' )*? '"' ;
 
-SEMI            : ';' ; // Optional semicolon at end of commands
+SEMI            : ';' ;
 
-// Keywords (case-insensitive can be handled with fragment rules or lexer alternatives if needed, keeping it simple here)
 LOAD            : 'LOAD';
 AS              : 'AS';
 RESIZE          : 'RESIZE';
@@ -44,5 +41,5 @@ SAVE            : 'SAVE';
 TO              : 'TO';
 FORMAT          : 'FORMAT';
 
-WS              : [ \t\r\n]+ -> skip ; // Skip whitespace
-COMMENT         : '//' .*? '\r'? '\n' -> skip ; // Skip single-line comments
+WS              : [ \t\r\n]+ -> skip ;
+COMMENT         : '//' .*? '\r'? '\n' -> skip ;
