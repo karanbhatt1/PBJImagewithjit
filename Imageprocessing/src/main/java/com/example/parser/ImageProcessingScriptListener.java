@@ -1,24 +1,22 @@
 package org.example;
 
-// src/main/java/com/example/parser/ImageProcessingScriptListener.java
 
 
-import com.example.imagecore.ImageUtils; // Assuming ImageUtils is in this package or imported
+import com.example.imagecore.ImageUtils;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
-// Make sure ImageUtils is in a package like com.example.imagecore
-// and you import it, or it's in the same package (not recommended for util classes)
+
 
 public class ImageProcessingScriptListener extends ImageScriptBaseListener {
 
     private Map<String, BufferedImage> imageVariables = new HashMap<>();
-    private String outputDir = "script_output_images"; // Define an output directory
+    private String outputDir = "script_output_images";
 
     public ImageProcessingScriptListener() {
-        new File(outputDir).mkdirs(); // Ensure output directory exists
+        new File(outputDir).mkdirs();
     }
 
     @Override
@@ -150,7 +148,6 @@ public class ImageProcessingScriptListener extends ImageScriptBaseListener {
         }
     }
 
-    // Helper to remove quotes from string literals
     private String stripQuotes(String text) {
         if (text != null && text.length() >= 2 && text.startsWith("\"") && text.endsWith("\"")) {
             return text.substring(1, text.length() - 1).replace("\"\"", "\""); // also handle escaped quotes "" -> "
