@@ -12,7 +12,7 @@ import java.util.Map;
 public class IRGenerator {
  
     private List<Instruction> instructions;
-    private Map<String, String> variableMap; // Maps variable names to IR variable names (for SSA, if used)
+    private Map<String, String> variableMap;
     private int tempVarCounter;
     private int labelCounter;
 
@@ -223,7 +223,7 @@ public class IRGenerator {
 
     private String getOrCreateVariableName(String name) {
         if (!variableMap.containsKey(name)) {
-            String newName = "var" + variableMap.size(); //  Simple renaming strategy
+            String newName = "var" + variableMap.size();
             variableMap.put(name, newName);
             return newName;
         }
@@ -234,7 +234,7 @@ public class IRGenerator {
         instructions.add(instruction);
     }
 
-    //  Instruction Class
+
     public static class Instruction {
         private OpCode opCode;
         private String result;
@@ -276,7 +276,6 @@ public class IRGenerator {
         }
     }
 
-    //  OpCode Enum
     public enum OpCode {
         LOAD,
         STORE,
@@ -293,7 +292,7 @@ public class IRGenerator {
         BRANCH_IF,
         GOTO,
         LABEL,
-        CALL, //For function calls
+        CALL,
         LOAD_IMAGE,
         RESIZE_IMAGE,
         GRAYSCALE_IMAGE,
