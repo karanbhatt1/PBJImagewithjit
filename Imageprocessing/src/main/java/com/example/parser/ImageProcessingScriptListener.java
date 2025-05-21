@@ -1,14 +1,14 @@
-package org.example;
+package com.example.parser;
 
-
+import com.example.parser.ImageScriptBaseListener;
+import com.example.parser.ImageScriptParser;
 
 import com.example.imagecore.ImageUtils;
-import org.antlr.v4.runtime.tree.TerminalNode;
+
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
-
 
 public class ImageProcessingScriptListener extends ImageScriptBaseListener {
 
@@ -21,136 +21,158 @@ public class ImageProcessingScriptListener extends ImageScriptBaseListener {
 
     @Override
     public void enterLoadCmd(ImageScriptParser.LoadCmdContext ctx) {
-        String filePath = stripQuotes(ctx.filePath.getText());
-        String varName = ctx.varName.getText();
+        String filePath = stripQuotes(ctx.STRING_LITERAL().getText());
+        String varName = ctx.VAR_NAME().getText();
         System.out.println("Executing: LOAD \"" + filePath + "\" AS " + varName);
-
-        BufferedImage img = ImageUtils.loadImage(filePath);
-        if (img != null) {
-            imageVariables.put(varName, img);
-            System.out.println(" -> Loaded '" + filePath + "' into variable '" + varName + "'.");
-        } else {
-            System.err.println(" -> Failed to load image: " + filePath);
+        try {
+            BufferedImage image = ImageUtils.loadImage(filePath);
+            if (image != null) {
+                imageVariables.put(varName, image);
+                System.out.println("-> Loaded image into variable: " + varName);
+            } else {
+                System.err.println("-> Error loading image from: " + filePath);
+            }
+        } catch (Exception e) {
+            System.err.println("-> Error loading image " + filePath + ": " + e.getMessage());
         }
     }
 
     @Override
     public void enterResizeCmd(ImageScriptParser.ResizeCmdContext ctx) {
-        String inputVar = ctx.inputVar.getText();
-        int targetWidth = Integer.parseInt(ctx.width.getText());
-        int targetHeight = Integer.parseInt(ctx.height.getText());
-        String outputVar = ctx.outputVar.getText();
-        System.out.println("Executing: RESIZE " + inputVar + " WIDTH " + targetWidth + " HEIGHT " + targetHeight + " AS " + outputVar);
+        String inputVar = ctx.VAR_NAME(0).getText();
+        String outputVar = ctx.VAR_NAME(1).getText();
+        int width = Integer.parseInt(ctx.INT(0).getText());
+        int height = Integer.parseInt(ctx.INT(1).getText());
 
-        BufferedImage originalImg = imageVariables.get(inputVar);
-        if (originalImg != null) {
-            BufferedImage resizedImg = ImageUtils.resizeImage(originalImg, targetWidth, targetHeight);
-            if (resizedImg != null) {
-                imageVariables.put(outputVar, resizedImg);
-                System.out.println(" -> Resized '" + inputVar + "' into '" + outputVar + "'.");
-            } else {
-                System.err.println(" -> Failed to resize image: " + inputVar);
+        System.out.println("Executing: RESIZE " + inputVar + " WIDTH " + width + " HEIGHT " + height + " AS " + outputVar);
+
+        BufferedImage inputImage = imageVariables.get(inputVar);
+        if (inputImage != null) {
+            try {
+                BufferedImage resizedImage = ImageUtils.resizeImage(inputImage, width, height);
+                imageVariables.put(outputVar, resizedImage);
+                System.out.println("-> Resized image from " + inputVar + " to " + outputVar);
+            } catch (Exception e) {
+                System.err.println("-> Error resizing image " + inputVar + ": " + e.getMessage());
             }
         } else {
-            System.err.println(" -> Error: Variable '" + inputVar + "' not found for resizing.");
+            System.err.println("-> Error: Input variable " + inputVar + " not found for RESIZE command.");
         }
     }
 
     @Override
     public void enterGrayscaleCmd(ImageScriptParser.GrayscaleCmdContext ctx) {
-        String inputVar = ctx.inputVar.getText();
-        String outputVar = ctx.outputVar.getText();
+        String inputVar = ctx.VAR_NAME(0).getText();
+        String outputVar = ctx.VAR_NAME(1).getText();
+
         System.out.println("Executing: GRAYSCALE " + inputVar + " AS " + outputVar);
 
-        BufferedImage originalImg = imageVariables.get(inputVar);
-        if (originalImg != null) {
-            BufferedImage grayImg = ImageUtils.convertToGrayscale(originalImg);
-            if (grayImg != null) {
-                imageVariables.put(outputVar, grayImg);
-                System.out.println(" -> Converted '" + inputVar + "' to grayscale into '" + outputVar + "'.");
-            } else {
-                System.err.println(" -> Failed to grayscale image: " + inputVar);
+        BufferedImage inputImage = imageVariables.get(inputVar);
+        if (inputImage != null) {
+            try {
+                BufferedImage grayImage = ImageUtils.grayscaleImage(inputImage);
+                imageVariables.put(outputVar, grayImage);
+                System.out.println("-> Applied grayscale to " + inputVar + " to " + outputVar);
+            } catch (Exception e) {
+                System.err.println("-> Error applying grayscale to " + inputVar + ": " + e.getMessage());
             }
         } else {
-            System.err.println(" -> Error: Variable '" + inputVar + "' not found for grayscale.");
+            System.err.println("-> Error: Input variable " + inputVar + " not found for GRAYSCALE command.");
         }
     }
 
     @Override
     public void enterRotateCmd(ImageScriptParser.RotateCmdContext ctx) {
-        String inputVar = ctx.inputVar.getText();
-        double angle = Double.parseDouble(ctx.angle.getText());
-        String outputVar = ctx.outputVar.getText();
+        String inputVar = ctx.VAR_NAME(0).getText();
+        String outputVar = ctx.VAR_NAME(1).getText();
+        int angle = Integer.parseInt(ctx.INT().getText());
+
         System.out.println("Executing: ROTATE " + inputVar + " ANGLE " + angle + " AS " + outputVar);
 
-        BufferedImage originalImg = imageVariables.get(inputVar);
-        if (originalImg != null) {
-            BufferedImage rotatedImg = ImageUtils.rotateImage(originalImg, angle);
-            if (rotatedImg != null) {
-                imageVariables.put(outputVar, rotatedImg);
-                System.out.println(" -> Rotated '" + inputVar + "' into '" + outputVar + "'.");
-            } else {
-                System.err.println(" -> Failed to rotate image: " + inputVar);
+        BufferedImage inputImage = imageVariables.get(inputVar);
+        if (inputImage != null) {
+            try {
+                BufferedImage rotatedImage = ImageUtils.rotateImage(inputImage, angle);
+                imageVariables.put(outputVar, rotatedImage);
+                System.out.println("-> Rotated image from " + inputVar + " by " + angle + " degrees to " + outputVar);
+            } catch (Exception e) {
+                System.err.println("-> Error rotating image " + inputVar + ": " + e.getMessage());
             }
         } else {
-            System.err.println(" -> Error: Variable '" + inputVar + "' not found for rotation.");
+            System.err.println("-> Error: Input variable " + inputVar + " not found for ROTATE command.");
         }
     }
 
     @Override
     public void enterFlipCmd(ImageScriptParser.FlipCmdContext ctx) {
-        String inputVar = ctx.inputVar.getText();
-        String direction = ctx.direction.getText();
-        String outputVar = ctx.outputVar.getText();
-        System.out.println("Executing: FLIP " + inputVar + " " + direction + " AS " + outputVar);
+        String inputVar = ctx.VAR_NAME(0).getText();
+        String outputVar = ctx.VAR_NAME(1).getText();
+        String flipType = ctx.FLIP_TYPE().getText();
 
-        BufferedImage originalImg = imageVariables.get(inputVar);
-        if (originalImg != null) {
-            boolean horizontalFlip = false;
-            boolean verticalFlip = false;
-            if ("HORIZONTAL".equals(direction) || "BOTH".equals(direction)) {
-                horizontalFlip = true;
-            }
-            if ("VERTICAL".equals(direction) || "BOTH".equals(direction)) {
-                verticalFlip = true;
-            }
-            BufferedImage flippedImg = ImageUtils.flipImage(originalImg, horizontalFlip, verticalFlip);
-            if (flippedImg != null) {
-                imageVariables.put(outputVar, flippedImg);
-                System.out.println(" -> Flipped '" + inputVar + "' (" + direction + ") into '" + outputVar + "'.");
-            } else {
-                System.err.println(" -> Failed to flip image: " + inputVar);
+        System.out.println("Executing: FLIP " + inputVar + " " + flipType + " AS " + outputVar);
+
+        BufferedImage inputImage = imageVariables.get(inputVar);
+        if (inputImage != null) {
+            try {
+                BufferedImage flippedImage = null;
+                switch (flipType) {
+                    case "HORIZONTAL":
+                        flippedImage = ImageUtils.flipImage(inputImage, true, false);
+                        break;
+                    case "VERTICAL":
+                        flippedImage = ImageUtils.flipImage(inputImage, false, true);
+                        break;
+                    case "BOTH":
+                        flippedImage = ImageUtils.flipImage(inputImage, true, true);
+                        break;
+                    default:
+                        System.err.println("-> Unknown flip type: " + flipType);
+                        break;
+                }
+                if (flippedImage != null) {
+                    imageVariables.put(outputVar, flippedImage);
+                    System.out.println("-> Flipped image from " + inputVar + " (" + flipType + ") to " + outputVar);
+                }
+            } catch (Exception e) {
+                System.err.println("-> Error flipping image " + inputVar + ": " + e.getMessage());
             }
         } else {
-            System.err.println(" -> Error: Variable '" + inputVar + "' not found for flipping.");
+            System.err.println("-> Error: Input variable " + inputVar + " not found for FLIP command.");
         }
     }
 
-
     @Override
     public void enterSaveCmd(ImageScriptParser.SaveCmdContext ctx) {
-        String varName = ctx.varName.getText();
-        String filePath = stripQuotes(ctx.filePath.getText());
-        String formatName = stripQuotes(ctx.formatName.getText());
-        System.out.println("Executing: SAVE " + varName + " TO \"" + filePath + "\" FORMAT \"" + formatName + "\"");
+        String inputVar = ctx.VAR_NAME().getText();
+        String filePath = stripQuotes(ctx.STRING_LITERAL().getText());
+        String format = stripQuotes(ctx.STRING_LITERAL().get(1).getText());
 
-        BufferedImage imgToSave = imageVariables.get(varName);
-        if (imgToSave != null) {
-            // Prepend output directory
-            String fullOutputPath = outputDir + File.separator + filePath;
-            if (ImageUtils.saveImage(imgToSave, fullOutputPath, formatName)) {
-                System.out.println(" -> Saved '" + varName + "' to '" + fullOutputPath + "'.");
-            } else {
-                System.err.println(" -> Failed to save image '" + varName + "' to '" + fullOutputPath + "'.");
+        System.out.println("Executing: SAVE " + inputVar + " TO \"" + filePath + "\" FORMAT \"" + format + "\"");
+
+        BufferedImage imageToSave = imageVariables.get(inputVar);
+        if (imageToSave != null) {
+            try {
+                String finalSavePath;
+                File outputFile = new File(filePath);
+                if (!outputFile.isAbsolute()) {
+                    finalSavePath = new File(outputDir, filePath).getAbsolutePath();
+                } else {
+                    finalSavePath = filePath;
+                }
+
+                ImageUtils.saveImage(imageToSave, finalSavePath, format);
+                System.out.println("-> Saved image from " + inputVar + " to " + finalSavePath);
+            } catch (Exception e) {
+                System.err.println("-> Error saving image " + inputVar + " to " + filePath + ": " + e.getMessage());
             }
         } else {
-            System.err.println(" -> Error: Variable '" + varName + "' not found for saving.");
+            System.err.println("-> Error: Input variable " + inputVar + " not found for SAVE command.");
         }
     }
 
     private String stripQuotes(String text) {
         if (text != null && text.length() >= 2 && text.startsWith("\"") && text.endsWith("\"")) {
-            return text.substring(1, text.length() - 1).replace("\"\"", "\""); // also handle escaped quotes "" -> "
+            return text.substring(1, text.length() - 1).replace("\"\"", "\"");
         }
         return text;
     }

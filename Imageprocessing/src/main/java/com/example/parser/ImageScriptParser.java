@@ -33,7 +33,7 @@ public class ImageScriptParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, null, null, "';'", "'LOAD'", "'AS'", "'RESIZE'", "'WIDTH'", 
+			null, null, null, null, "';'", "'LOAD'", "'AS'", "'RESIZE'", "'WIDTH'",
 			"'HEIGHT'", "'GRAYSCALE'", "'ROTATE'", "'ANGLE'", "'FLIP'", "'HORIZONTAL'", 
 			"'VERTICAL'", "'BOTH'", "'SAVE'", "'TO'", "'FORMAT'"
 		};
