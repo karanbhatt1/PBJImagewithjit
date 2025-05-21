@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ImageProcessingScriptListener extends ImageScriptBaseListener {
-
     private Map<String, BufferedImage> imageVariables = new HashMap<>();
     private String outputDir = "script_output_images";
 

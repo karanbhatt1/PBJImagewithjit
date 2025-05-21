@@ -16,24 +16,24 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.charset.StandardCharsets; // Import this for debugging
+import java.nio.charset.StandardCharsets;
 
 public class MainApp {
     public static void main(String[] args) {
-        // Create a dedicated output directory for processed images
+
         String outputDir = "script_output_images";
-        new File(outputDir).mkdirs(); // Ensure directory exists
+        new File(outputDir).mkdirs();
 
         String scriptFilePath = "myscript.is";
         File scriptFile = new File(scriptFilePath);
 
-        // --- Dummy Script and Input Image Creation ---
+
         if (!scriptFile.exists()) {
             System.out.println("Script file '" + scriptFilePath + "' not found. Creating a dummy script for demonstration.");
             try {
-                // IMPORTANT: Use forward slashes for paths within the script content string
-                String inputImagePathForScript = outputDir + "/" + "input.png"; // <-- CHANGED HERE
-                File inputPng = new File(outputDir + File.separator + "input.png"); // Still use File.separator for actual file system operations
+
+                String inputImagePathForScript = outputDir + "/" + "input.png";
+                File inputPng = new File(outputDir + File.separator + "input.png");
                 if (!inputPng.exists()) {
                     BufferedImage dummyInput = new BufferedImage(200, 150, BufferedImage.TYPE_INT_ARGB);
                     for (int x = 0; x < dummyInput.getWidth(); x++) {
@@ -41,7 +41,7 @@ public class MainApp {
                             dummyInput.setRGB(x, y, new Color(0, 0, 255, 255).getRGB());
                         }
                     }
-                    ImageUtils.saveImage(dummyInput, inputPng.getAbsolutePath(), "png"); // Save using absolute path
+                    ImageUtils.saveImage(dummyInput, inputPng.getAbsolutePath(), "png");
                     System.out.println("Created dummy " + inputPng.getName() + " in " + outputDir + " for the script.");
                 }
 
@@ -70,7 +70,7 @@ public class MainApp {
 
         try {
             System.out.println("Reading script from: " + scriptFilePath);
-            String scriptContent = Files.readString(Paths.get(scriptFilePath), StandardCharsets.UTF_8); // Explicitly specify UTF-8 for reading
+            String scriptContent = Files.readString(Paths.get(scriptFilePath), StandardCharsets.UTF_8);
 
 
             System.out.println("\n--- DEBUG: Script Content Read ---");
@@ -78,7 +78,7 @@ public class MainApp {
             System.out.println("Bytes (UTF-8) length: " + scriptContent.getBytes(StandardCharsets.UTF_8).length);
             System.out.print("First 50 characters (showing codepoints): ");
             scriptContent.chars().limit(50).forEach(cp -> {
-                System.out.printf("U+%04X ", cp); // Print Unicode code point
+                System.out.printf("U+%04X ", cp);
             });
             System.out.println();
             System.out.print("First 50 bytes (hex): ");
@@ -87,7 +87,7 @@ public class MainApp {
                 System.out.printf("%02X ", rawBytes[i]);
             }
             System.out.println("\n--- END DEBUG ---\n");
-            // --- DEBUGGING END ---
+
 
 
             System.out.println("\n--- Script Content (for display) ---");

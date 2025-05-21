@@ -1,4 +1,4 @@
-package com.example.imagecore; // Package suggested by MainApp's comment, or wherever you place it
+package com.example.imagecore;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -30,7 +30,7 @@ public class ImageUtils {
         }
         try {
             File outputFile = new File(filePath);
-            // Ensure parent directories exist
+
             File parentDir = outputFile.getParentFile();
             if (parentDir != null && !parentDir.exists()) {
                 parentDir.mkdirs();
@@ -53,7 +53,7 @@ public class ImageUtils {
 
     public static BufferedImage convertToGrayscale(BufferedImage originalImage) {
         if (originalImage == null) return null;
-        // Use ARGB to preserve transparency if original has it
+
         BufferedImage grayImage = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
         for (int i = 0; i < originalImage.getWidth(); i++) {
             for (int j = 0; j < originalImage.getHeight(); j++) {
@@ -72,7 +72,7 @@ public class ImageUtils {
         int w = originalImage.getWidth();
         int h = originalImage.getHeight();
 
-        // Calculate new dimensions to avoid cropping
+
         double sin = Math.abs(Math.sin(radians));
         double cos = Math.abs(Math.cos(radians));
         int newW = (int) Math.floor(w * cos + h * sin);
@@ -81,7 +81,7 @@ public class ImageUtils {
         BufferedImage rotated = new BufferedImage(newW, newH, originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType());
         Graphics2D g = rotated.createGraphics();
 
-        // Translate to center, rotate, then translate back
+
         g.translate((newW - w) / 2, (newH - h) / 2);
         g.rotate(radians, w / 2, h / 2);
         g.drawImage(originalImage, 0, 0, null);
