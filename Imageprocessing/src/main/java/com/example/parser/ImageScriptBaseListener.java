@@ -1,113 +1,124 @@
-// Generated from package/ImageScript.g4 by ANTLR 4.13.1
-package com.example.parser;
+// Generated from package/Imagescript.g4 by ANTLR 4.13.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link ImageScriptListener},
+ * This class provides an empty implementation of {@link ImagescriptListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
 @SuppressWarnings("CheckReturnValue")
-public class ImageScriptBaseListener implements ImageScriptListener {
+public class ImageScriptBaseListener implements ImagescriptListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterScript(ImageScriptParser.ScriptContext ctx) { }
+	@Override public void enterScript(ImagescriptParser.ScriptContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitScript(ImageScriptParser.ScriptContext ctx) { }
+	@Override public void exitScript(ImagescriptParser.ScriptContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCommand(ImageScriptParser.CommandContext ctx) { }
+	@Override public void enterCommand(ImagescriptParser.CommandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCommand(ImageScriptParser.CommandContext ctx) { }
+	@Override public void exitCommand(ImagescriptParser.CommandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLoadCmd(ImageScriptParser.LoadCmdContext ctx) { }
+	@Override public void enterLoadCmd(ImagescriptParser.LoadCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLoadCmd(ImageScriptParser.LoadCmdContext ctx) { }
+	@Override public void exitLoadCmd(ImagescriptParser.LoadCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterResizeCmd(ImageScriptParser.ResizeCmdContext ctx) { }
+	@Override public void enterResizeCmd(ImagescriptParser.ResizeCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitResizeCmd(ImageScriptParser.ResizeCmdContext ctx) { }
+	@Override public void exitResizeCmd(ImagescriptParser.ResizeCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterGrayscaleCmd(ImageScriptParser.GrayscaleCmdContext ctx) { }
+	@Override public void enterGrayscaleCmd(ImagescriptParser.GrayscaleCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitGrayscaleCmd(ImageScriptParser.GrayscaleCmdContext ctx) { }
+	@Override public void exitGrayscaleCmd(ImagescriptParser.GrayscaleCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRotateCmd(ImageScriptParser.RotateCmdContext ctx) { }
+	@Override public void enterRotateCmd(ImagescriptParser.RotateCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRotateCmd(ImageScriptParser.RotateCmdContext ctx) { }
+	@Override public void exitRotateCmd(ImagescriptParser.RotateCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFlipCmd(ImageScriptParser.FlipCmdContext ctx) { }
+	@Override public void enterFlipCmd(ImagescriptParser.FlipCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFlipCmd(ImageScriptParser.FlipCmdContext ctx) { }
+	@Override public void exitFlipCmd(ImagescriptParser.FlipCmdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSaveCmd(ImageScriptParser.SaveCmdContext ctx) { }
+	@Override public void enterDirection(ImagescriptParser.DirectionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSaveCmd(ImageScriptParser.SaveCmdContext ctx) { }
+	@Override public void exitDirection(ImagescriptParser.DirectionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSaveCmd(ImagescriptParser.SaveCmdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSaveCmd(ImagescriptParser.SaveCmdContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

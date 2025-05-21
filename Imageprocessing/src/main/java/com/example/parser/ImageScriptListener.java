@@ -1,90 +1,99 @@
-// Generated from package/ImageScript.g4 by ANTLR 4.13.1
-package com.example.parser;
+// Generated from package/Imagescript.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
  * This interface defines a complete listener for a parse tree produced by
- * {@link ImageScriptParser}.
+ * {@link ImagescriptParser}.
  */
-public interface ImageScriptListener extends ParseTreeListener {
+public interface ImagescriptListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link ImageScriptParser#script}.
+	 * Enter a parse tree produced by {@link ImagescriptParser#script}.
 	 * @param ctx the parse tree
 	 */
-	void enterScript(ImageScriptParser.ScriptContext ctx);
+	void enterScript(ImagescriptParser.ScriptContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ImageScriptParser#script}.
+	 * Exit a parse tree produced by {@link ImagescriptParser#script}.
 	 * @param ctx the parse tree
 	 */
-	void exitScript(ImageScriptParser.ScriptContext ctx);
+	void exitScript(ImagescriptParser.ScriptContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ImageScriptParser#command}.
+	 * Enter a parse tree produced by {@link ImagescriptParser#command}.
 	 * @param ctx the parse tree
 	 */
-	void enterCommand(ImageScriptParser.CommandContext ctx);
+	void enterCommand(ImagescriptParser.CommandContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ImageScriptParser#command}.
+	 * Exit a parse tree produced by {@link ImagescriptParser#command}.
 	 * @param ctx the parse tree
 	 */
-	void exitCommand(ImageScriptParser.CommandContext ctx);
+	void exitCommand(ImagescriptParser.CommandContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ImageScriptParser#loadCmd}.
+	 * Enter a parse tree produced by {@link ImagescriptParser#loadCmd}.
 	 * @param ctx the parse tree
 	 */
-	void enterLoadCmd(ImageScriptParser.LoadCmdContext ctx);
+	void enterLoadCmd(ImagescriptParser.LoadCmdContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ImageScriptParser#loadCmd}.
+	 * Exit a parse tree produced by {@link ImagescriptParser#loadCmd}.
 	 * @param ctx the parse tree
 	 */
-	void exitLoadCmd(ImageScriptParser.LoadCmdContext ctx);
+	void exitLoadCmd(ImagescriptParser.LoadCmdContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ImageScriptParser#resizeCmd}.
+	 * Enter a parse tree produced by {@link ImagescriptParser#resizeCmd}.
 	 * @param ctx the parse tree
 	 */
-	void enterResizeCmd(ImageScriptParser.ResizeCmdContext ctx);
+	void enterResizeCmd(ImagescriptParser.ResizeCmdContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ImageScriptParser#resizeCmd}.
+	 * Exit a parse tree produced by {@link ImagescriptParser#resizeCmd}.
 	 * @param ctx the parse tree
 	 */
-	void exitResizeCmd(ImageScriptParser.ResizeCmdContext ctx);
+	void exitResizeCmd(ImagescriptParser.ResizeCmdContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ImageScriptParser#grayscaleCmd}.
+	 * Enter a parse tree produced by {@link ImagescriptParser#grayscaleCmd}.
 	 * @param ctx the parse tree
 	 */
-	void enterGrayscaleCmd(ImageScriptParser.GrayscaleCmdContext ctx);
+	void enterGrayscaleCmd(ImagescriptParser.GrayscaleCmdContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ImageScriptParser#grayscaleCmd}.
+	 * Exit a parse tree produced by {@link ImagescriptParser#grayscaleCmd}.
 	 * @param ctx the parse tree
 	 */
-	void exitGrayscaleCmd(ImageScriptParser.GrayscaleCmdContext ctx);
+	void exitGrayscaleCmd(ImagescriptParser.GrayscaleCmdContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ImageScriptParser#rotateCmd}.
+	 * Enter a parse tree produced by {@link ImagescriptParser#rotateCmd}.
 	 * @param ctx the parse tree
 	 */
-	void enterRotateCmd(ImageScriptParser.RotateCmdContext ctx);
+	void enterRotateCmd(ImagescriptParser.RotateCmdContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ImageScriptParser#rotateCmd}.
+	 * Exit a parse tree produced by {@link ImagescriptParser#rotateCmd}.
 	 * @param ctx the parse tree
 	 */
-	void exitRotateCmd(ImageScriptParser.RotateCmdContext ctx);
+	void exitRotateCmd(ImagescriptParser.RotateCmdContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ImageScriptParser#flipCmd}.
+	 * Enter a parse tree produced by {@link ImagescriptParser#flipCmd}.
 	 * @param ctx the parse tree
 	 */
-	void enterFlipCmd(ImageScriptParser.FlipCmdContext ctx);
+	void enterFlipCmd(ImagescriptParser.FlipCmdContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ImageScriptParser#flipCmd}.
+	 * Exit a parse tree produced by {@link ImagescriptParser#flipCmd}.
 	 * @param ctx the parse tree
 	 */
-	void exitFlipCmd(ImageScriptParser.FlipCmdContext ctx);
+	void exitFlipCmd(ImagescriptParser.FlipCmdContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ImageScriptParser#saveCmd}.
+	 * Enter a parse tree produced by {@link ImagescriptParser#direction}.
 	 * @param ctx the parse tree
 	 */
-	void enterSaveCmd(ImageScriptParser.SaveCmdContext ctx);
+	void enterDirection(ImagescriptParser.DirectionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ImageScriptParser#saveCmd}.
+	 * Exit a parse tree produced by {@link ImagescriptParser#direction}.
 	 * @param ctx the parse tree
 	 */
-	void exitSaveCmd(ImageScriptParser.SaveCmdContext ctx);
+	void exitDirection(ImagescriptParser.DirectionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ImagescriptParser#saveCmd}.
+	 * @param ctx the parse tree
+	 */
+	void enterSaveCmd(ImagescriptParser.SaveCmdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ImagescriptParser#saveCmd}.
+	 * @param ctx the parse tree
+	 */
+	void exitSaveCmd(ImagescriptParser.SaveCmdContext ctx);
 }

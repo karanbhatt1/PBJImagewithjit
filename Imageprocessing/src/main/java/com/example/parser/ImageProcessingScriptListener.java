@@ -1,15 +1,15 @@
 package com.example.parser;
 
 import com.example.imagecore.ImageUtils;
-import com.example.parser.ImageScriptBaseListener;
-import com.example.parser.ImageScriptParser;
+import com.example.parser.ImagescriptBaseListener;
+import com.example.parser.ImagescriptParser;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ImageProcessingScriptListener extends ImageScriptBaseListener {
+public class ImageProcessingScriptListener extends ImagescriptBaseListener {
     private Map<String, BufferedImage> imageVariables = new HashMap<>();
     private final String outputDir = "script_output_images";
 
@@ -18,7 +18,7 @@ public class ImageProcessingScriptListener extends ImageScriptBaseListener {
     }
 
     @Override
-    public void enterLoadCmd(ImageScriptParser.LoadCmdContext ctx) {
+    public void enterLoadCmd(ImagescriptParser.LoadCmdContext ctx) {
         String filePath = stripQuotes(ctx.filePath.getText());
         String varName = ctx.varName.getText();
         try {
@@ -30,7 +30,7 @@ public class ImageProcessingScriptListener extends ImageScriptBaseListener {
     }
 
     @Override
-    public void enterResizeCmd(ImageScriptParser.ResizeCmdContext ctx) {
+    public void enterResizeCmd(ImagescriptParser.ResizeCmdContext ctx) {
         String inputVar = ctx.inputVar.getText();
         String outputVar = ctx.outputVar.getText();
         int width = (int) Double.parseDouble(ctx.width.getText());
@@ -45,20 +45,20 @@ public class ImageProcessingScriptListener extends ImageScriptBaseListener {
     }
 
     @Override
-    public void enterGrayscaleCmd(ImageScriptParser.GrayscaleCmdContext ctx) {
+    public void enterGrayscaleCmd(ImagescriptParser.GrayscaleCmdContext ctx) {
         String inputVar = ctx.inputVar.getText();
         String outputVar = ctx.outputVar.getText();
         BufferedImage inputImage = imageVariables.get(inputVar);
         if (inputImage != null) {
             try {
-                BufferedImage grayImage = ImageUtils.grayscaleImage(inputImage);
+                BufferedImage grayImage = ImageUtils.convertToGrayscale(inputImage);
                 imageVariables.put(outputVar, grayImage);
             } catch (Exception ignored) {}
         }
     }
 
     @Override
-    public void enterRotateCmd(ImageScriptParser.RotateCmdContext ctx) {
+    public void enterRotateCmd(ImagescriptParser.RotateCmdContext ctx) {
         String inputVar = ctx.inputVar.getText();
         String outputVar = ctx.outputVar.getText();
         int angle = (int) Double.parseDouble(ctx.angle.getText());
@@ -72,7 +72,7 @@ public class ImageProcessingScriptListener extends ImageScriptBaseListener {
     }
 
     @Override
-    public void enterFlipCmd(ImageScriptParser.FlipCmdContext ctx) {
+    public void enterFlipCmd(ImagescriptParser.FlipCmdContext ctx) {
         String inputVar = ctx.inputVar.getText();
         String outputVar = ctx.outputVar.getText();
         String direction = ctx.direction().getText();
@@ -93,7 +93,7 @@ public class ImageProcessingScriptListener extends ImageScriptBaseListener {
     }
 
     @Override
-    public void enterSaveCmd(ImageScriptParser.SaveCmdContext ctx) {
+    public void enterSaveCmd(ImagescriptParser.SaveCmdContext ctx) {
         String varName = ctx.varName.getText();
         String filePath = stripQuotes(ctx.filePath.getText());
         String format = stripQuotes(ctx.formatName.getText());

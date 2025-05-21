@@ -1,8 +1,8 @@
 package org.example;
 
 import com.example.parser.ImageProcessingScriptListener;
-import com.example.parser.ImageScriptLexer;
-import com.example.parser.ImageScriptParser;
+import com.example.parser.ImagescriptLexer;
+import com.example.parser.ImagescriptParser;
 import com.example.imagecore.ImageUtils;
 
 import org.antlr.v4.runtime.CharStreams;
@@ -20,18 +20,14 @@ import java.nio.charset.StandardCharsets;
 
 public class MainApp {
     public static void main(String[] args) {
-
         String outputDir = "script_output_images";
         new File(outputDir).mkdirs();
 
         String scriptFilePath = "myscript.is";
         File scriptFile = new File(scriptFilePath);
 
-
         if (!scriptFile.exists()) {
-            System.out.println("Script file '" + scriptFilePath + "' not found. Creating a dummy script for demonstration.");
             try {
-
                 String inputImagePathForScript = outputDir + "/" + "input.png";
                 File inputPng = new File(outputDir + File.separator + "input.png");
                 if (!inputPng.exists()) {
@@ -42,12 +38,10 @@ public class MainApp {
                         }
                     }
                     ImageUtils.saveImage(dummyInput, inputPng.getAbsolutePath(), "png");
-                    System.out.println("Created dummy " + inputPng.getName() + " in " + outputDir + " for the script.");
                 }
 
                 String dummyScriptContent =
-                        "// Image Processing Script Demo\n" +
-                                "LOAD \"" + inputImagePathForScript + "\" AS originalImage;\n" +
+                        "LOAD \"" + inputImagePathForScript + "\" AS originalImage;\n" +
                                 "RESIZE originalImage WIDTH 150 HEIGHT 100 AS resizedImage;\n" +
                                 "GRAYSCALE resizedImage AS grayImage;\n" +
                                 "SAVE grayImage TO \"" + outputDir + "/" + "processed_gray.png\" FORMAT \"png\";\n" +
@@ -60,51 +54,26 @@ public class MainApp {
                                 "FLIP originalImage BOTH AS flippedBImage;\n" +
                                 "SAVE flippedBImage TO \"" + outputDir + "/" + "processed_flipped_b.png\" FORMAT \"png\";\n";
                 Files.writeString(Paths.get(scriptFilePath), dummyScriptContent);
-                System.out.println("Dummy script '" + scriptFilePath + "' created. Please re-run or edit it.");
+                return;
             } catch (IOException e) {
                 System.err.println("Could not create dummy script or image: " + e.getMessage());
                 return;
             }
         }
 
-
         try {
-            System.out.println("Reading script from: " + scriptFilePath);
             String scriptContent = Files.readString(Paths.get(scriptFilePath), StandardCharsets.UTF_8);
 
-
-            System.out.println("\n--- DEBUG: Script Content Read ---");
-            System.out.println("Length of String: " + scriptContent.length());
-            System.out.println("Bytes (UTF-8) length: " + scriptContent.getBytes(StandardCharsets.UTF_8).length);
-            System.out.print("First 50 characters (showing codepoints): ");
-            scriptContent.chars().limit(50).forEach(cp -> {
-                System.out.printf("U+%04X ", cp);
-            });
-            System.out.println();
-            System.out.print("First 50 bytes (hex): ");
-            byte[] rawBytes = scriptContent.getBytes(StandardCharsets.UTF_8);
-            for (int i = 0; i < Math.min(rawBytes.length, 50); i++) {
-                System.out.printf("%02X ", rawBytes[i]);
-            }
-            System.out.println("\n--- END DEBUG ---\n");
-
-
-
-            System.out.println("\n--- Script Content (for display) ---");
-            System.out.println(scriptContent);
-
-            System.out.println("--- End Script Content ---\n");
-
-            ImageScriptLexer lexer = new ImageScriptLexer(CharStreams.fromString(scriptContent));
+            ImagescriptLexer lexer = new ImagescriptLexer(CharStreams.fromString(scriptContent));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
-            ImageScriptParser parser = new ImageScriptParser(tokens);
+            ImagescriptParser parser = new ImagescriptParser(tokens);
 
             ParseTree tree = parser.script();
             ImageProcessingScriptListener listener = new ImageProcessingScriptListener();
             ParseTreeWalker walker = new ParseTreeWalker();
             walker.walk(listener, tree);
 
-            System.out.println("\nScript execution finished. Check the '" + outputDir + "' directory for output images.");
+            System.out.println("Script execution finished. Check the '" + outputDir + "' directory for output images.");
 
         } catch (IOException e) {
             System.err.println("Error reading script file or processing: " + e.getMessage());
